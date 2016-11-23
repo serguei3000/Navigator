@@ -1,0 +1,28 @@
+{
+    "name": "serguei3000/navigator",
+    "description": "A library to split results into multiple pages. Taken from Koterov book php7 v podlinnike + add some fitures: query caching for database. Component is caching some next pages when going forward",
+    "keywords": ["navigator"],
+    "homepage": "https://github.com/serguei3000/navigator",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "serguei3000",
+            "email": "serguei3000@yandex.ru"
+        },
+        {
+            "name": "Dmitry Koterov",
+            "email": "dmitry.koterov@gmail.com"
+        }
+    ],
+    "support": {
+        "email  ": "serguei3000@yandex.ru"
+    },
+    "require": {
+        "php": ">=7.0.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "S_Navigator\\": "src/S_Navigator"
+        }
+    }
+}
