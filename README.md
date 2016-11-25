@@ -26,7 +26,7 @@ try {
     new S_Pager\ListRange,
     $pdo,
     'table_name',
-    1); //$way parameter defines the view of the Navigator
+    1); //  $way parameter defines the view of the Navigator 
   echo "<pre>";
   print_r($obj->getItems());
   echo "</pre>";
