@@ -16,6 +16,8 @@ class ListRange extends View
         return "<<{$first}-{$last}>>";
     }
     
+    
+    
     public function navigator(Listener $listener) {
 
         $this->listener = $listener;
@@ -110,22 +112,26 @@ class ListRange extends View
     }
     
     
-    // другой способ отображения страниц --------------------------------------------------------
+    // другой способ отображения страниц, для упрощения их все время 10 в области видимости -------------
     public function navigator2Way(Listener $listener) {
         
         $this->listener = $listener;
         $idx = 1;
+        $links = 10; //10 Страниц
         $current_page = $this->listener->getCurrentPage();
+        $total_pages = $this->listener->getPagesCount();
+        
+        
         $idx = $current_page;
         
-        if (abs($idx/10) == floor(abs($idx/10))) $idx--;
+        if (abs($idx/$links) == floor(abs($idx/$links))) $idx--;
          
         $Rez = array();
         $Rez[] = $idx;
         for($i=$idx+1;$i!=0;$i++)
         {
             $Rez[] = $i;
-            if (abs($i/10) == floor(abs($i/10)))
+            if (abs($i/$links) == floor(abs($i/$links)))
             {
             break;
             }
@@ -133,7 +139,7 @@ class ListRange extends View
         for($i=$idx-1;$i!=0;$i--)
         {
             $Rez[] = $i;
-            if (abs($i/10) == floor(abs($i/10)) ||$i == 1)
+            if (abs($i/$links) == floor(abs($i/$links)) ||$i == 1)
             {
              break;
             }
@@ -142,10 +148,14 @@ class ListRange extends View
         sort($Rez);
         $prev = $Rez[0] -1;
         if ($prev < 1) $prev = 1;
-        $next = $prev + 12;
-         
+        $next = $prev + ($links +2);
         
-        $return_page = "<td><a href=".$this->listener->getCurrentPagePath()."?str=$prev>Prev<< </a></td>";
+        if ($next > $total_pages){
+            $next = $total_pages;
+            }
+            
+        
+        $return_page = "<td><a href=".$this->listener->getCurrentPagePath()."?".$this->listener->getCounterParam()."=$prev>Prev<< </a></td>";
         
         foreach($Rez as $k=>$v)
         {
@@ -157,7 +167,9 @@ class ListRange extends View
         
         return $return_page;
         
-        
-        
+       
     }
+    
+    
+    
 }
