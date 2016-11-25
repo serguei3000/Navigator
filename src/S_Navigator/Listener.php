@@ -1,5 +1,8 @@
 <?php
 
+/*
+ base class for navigator
+ */
 
 namespace S_Navigator;
 
@@ -7,17 +10,19 @@ namespace S_Navigator;
 abstract class Listener
 {
     
-    protected $view;
+    protected $view; //view (View class)
     
-    protected $parameters;
+    protected $parameters; //query parameters
     
-    protected $counter_param;
+    protected $counter_param; //quantity of query parameters
     
-    protected $links_count;
+    protected $links_count;  //number of links to the right and left
     
-    protected $items_per_page;
+    protected $items_per_page; //number of items per page
     
-    protected $pages_cached;
+    protected $pages_cached; //number of cached pages
+    
+    protected $way; // way to draw navigator
 
    
     public function __construct(
@@ -26,7 +31,8 @@ abstract class Listener
         $links_count = 3,
         $get_params = null,
         $counter_param = 'page',
-        $pages_cached = 10)
+        $pages_cached = 10,
+        $way  = 1)
     {
         $this->view           = $view;
         $this->parameters     = $get_params;
@@ -34,6 +40,7 @@ abstract class Listener
         $this->items_per_page = $items_per_page;
         $this->links_count    = $links_count;
         $this->pages_cached   = $pages_cached;
+        $this->way            = $way;
     }
 
     
@@ -71,6 +78,11 @@ abstract class Listener
     {
         return $this->pages_cached;
     }
+    
+    public function getWay()
+    {
+        return $this->way;
+    }
      
   
     public function getCurrentPage()
@@ -92,10 +104,17 @@ abstract class Listener
 
       return $result;
     }
-   
+    
+    
+    // choosing way to draw navigator
     public function navigator()
     {
-        return $this->view->navigator($this);
+       if ($this->way == 1){
+           return $this->view->navigator($this);
+       }
+       else{
+           return $this->view->navigator2Way($this);
+       }
     }
   
     public function SetNavigator()

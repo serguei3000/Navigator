@@ -1,6 +1,9 @@
 <?php
 
+/*
+ base view 
 
+ */
 namespace S_Navigator;
 
 

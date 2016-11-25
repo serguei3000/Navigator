@@ -25,11 +25,12 @@ try {
   $obj = new S_Pager\DBListener(
     new S_Pager\ListRange,
     $pdo,
-    'table_name');
+    'table_name',
+    1); //$way parameter defines the view of the Navigator
   echo "<pre>";
   print_r($obj->getItems());
   echo "</pre>";
-  echo "<p>{$obj->SetNavigator()}</p>";
+  echo "<p>{$obj->SetNavigator()}</p>"; 
 }
 catch (PDOException $e) {
   echo "Can't connect to database";

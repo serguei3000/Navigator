@@ -1,5 +1,9 @@
 <?php
 
+/*
+ main class for navigator
+
+ */
 
 namespace S_Navigator;
 
@@ -23,7 +27,8 @@ class DBListener extends Listener
     public function __construct(
         View $view,
         $pdo,
-        $tablename, 
+        $tablename,
+        $way = 1,
         $where = "",
         $params = [],
         $order = "",
@@ -31,7 +36,8 @@ class DBListener extends Listener
         $links_count = 3,
         $get_params = null,
         $counter_param = 'page',
-        $pages_cached = 10)
+        $pages_cached = 10
+        )
     {
       $this->pdo = $pdo;
       $this->tablename = $tablename;
@@ -45,9 +51,11 @@ class DBListener extends Listener
           $links_count,
           $get_params,
           $counter_param,
-          $pages_cached);
+          $pages_cached,
+          $way);
     }
     
+    //DB query for item counts
     public function getItemsCount()
     {
         
@@ -74,7 +82,7 @@ class DBListener extends Listener
        return $this->getCachedData();
     }
     
-    
+    // query for DB with page caching via session
     private function getCachedData()
     {
         
